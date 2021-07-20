@@ -24,6 +24,6 @@ app.use('/', home);
 //random movie route
 app.use('/api/random_movie', randomMovie);
 
-app.listen(process.env.port || 3000, () => {
+app.listen(process.env.port || 4000, () => {
     console.log('App is running')
 });
