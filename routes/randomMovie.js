@@ -11,7 +11,12 @@ router.route('/')
     let howMany = 1;
 
     if (req.query.number) {
-        howMany = req.query.number
+        howMany = req.query.number;
+    }
+
+    //limits the query number
+    if (req.query.number > 5) {
+        howMany = 5;
     }
 
     let movieList = [];
