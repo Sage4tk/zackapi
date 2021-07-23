@@ -5,6 +5,23 @@ const moviename = require('movies-names');
 
 let router = express.Router();
 
+//command for getting a movie
+const getMovie = async () => {
+    //generates the random movie's name
+    const randomMovie = moviename.random();
+    const movie_name = randomMovie.title.split(' ').join('_');
+
+    //calls for the api
+    const data = await axios.get(`https://www.omdbapi.com/?t=${movie_name}&apikey=${process.env.OMDB_API_KEY}`);
+    const movieInfo = data.data;
+    
+    if (movieInfo.Response === "False") {
+        getMovie();
+    } else {
+        return movieInfo
+    }
+}
+
 router.route('/')
 .get(async (req, res) => {
     //queries how many times
@@ -25,20 +42,8 @@ router.route('/')
     movieList=[];
 
     for (let i = 0;i < howMany; i++) {
-        //gets random movie name
-        const randomMovie = moviename.random();
-    
-        //replace spaces with underscore if there is
-        const movie_name = randomMovie.title.split(' ').join('_');
-
-        //fetches the data from omdb
-        try {
-            const data = await axios.get(`https://www.omdbapi.com/?t=${movie_name}&apikey=${process.env.OMDB_API_KEY}`);
-            movieList.push(data.data)
-        } catch (err) {
-            console.log(err)
-            return res.json({msg: "Something went wrong"});
-        }
+        const movieData = await getMovie();
+        movieList.push(movieData)
     }
 
     return res.json(movieList);
