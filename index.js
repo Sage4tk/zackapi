@@ -28,10 +28,13 @@ db.on('error', console.error.bind(console, 'connection error'));
 //import routes
 const home = require('./routes/home');
 const randomMovie = require('./routes/randomMovie');
+const portfolio = require('./routes/portfolio')
 
 //routes
 //home route
 app.use('/', home);
+//portfolio route
+app.use('/api/portfolio', portfolio);
 //random movie route
 app.use('/api/random_movie', randomMovie);
 
