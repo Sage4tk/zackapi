@@ -10,7 +10,7 @@ const app = express();
 dotenv.config();
 //middleware
 app.use(cors());
-app.use(express.json({ limit: "2MB "}));
+app.use(express.json({ limit: "2MB"}));
 app.use(express.urlencoded({extended:false}));
 app.use(express.static("public"))
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
@@ -29,6 +29,7 @@ db.on('error', console.error.bind(console, 'connection error'));
 const home = require('./routes/home');
 const randomMovie = require('./routes/randomMovie');
 const portfolio = require('./routes/portfolio')
+const auth = require('./routes/auth');
 
 //routes
 //home route
@@ -37,6 +38,8 @@ app.use('/', home);
 app.use('/api/portfolio', portfolio);
 //random movie route
 app.use('/api/random_movie', randomMovie);
+//auth route
+app.use('/auth', auth);
 
 app.listen(process.env.port || 4000, () => {
     console.log('App is running')
