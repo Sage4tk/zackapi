@@ -28,7 +28,7 @@ router.route('/')
                     msg: "Something went wrong",
                     logged: false
                 })
-                if (results) {
+                if (result) {
                     const accessToken = jwt.sign({ name: req.body.username }, process.env.ACCESS_TOKEN);
                     return res.status(200).json({
                         jwt: accessToken,
