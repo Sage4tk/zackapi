@@ -38,11 +38,9 @@ router.route('/')
                 }
                 //if does not match
                 return res.json({msg: "Password does not match."});
-
             })
         })
     } catch (err) {
-        console.log(err);
         return res.json({
             msg: "Something went wrong",
             logged: false

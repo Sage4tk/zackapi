@@ -7,10 +7,10 @@ let router = express.Router();
 const projectSchema = require('../models/Project');
 
 //middleware
-// const authToken = require('../middleware/authToken');
+const authToken = require('../middleware/authToken');
 
 router.route('/')
-.get(async (req, res) => {
+.get(authToken, async (req, res) => {
     try {
         const data = await projectSchema.find();
         return res.json(data)
