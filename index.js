@@ -30,6 +30,7 @@ const home = require('./routes/home');
 const randomMovie = require('./routes/randomMovie');
 const portfolio = require('./routes/portfolio')
 const auth = require('./routes/auth');
+const weather = require('./routes/weather')
 
 //routes
 //home route
@@ -40,6 +41,8 @@ app.use('/api/portfolio', portfolio);
 app.use('/api/random_movie', randomMovie);
 //auth route
 app.use('/auth', auth);
+//weather route
+app.use('/api/weather', weather)
 
 app.listen(process.env.port || 4000, () => {
     console.log('App is running')
