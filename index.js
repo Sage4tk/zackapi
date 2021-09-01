@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const favicon = require('serve-favicon');
 const path = require('path');
 const mongoose = require('mongoose');
 
@@ -13,7 +12,6 @@ app.use(cors());
 app.use(express.json({ limit: "2MB"}));
 app.use(express.urlencoded({extended:false}));
 app.use(express.static("public"))
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 //database
 mongoose.connect(
