@@ -42,6 +42,6 @@ app.use('/auth', auth);
 //weather route
 app.use('/api/weather', weather);
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen(process.env.port || 4000, () => {
     console.log('App is running')
 });
