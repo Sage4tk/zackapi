@@ -3,11 +3,13 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 dotenv.config();
 //middleware
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json({ limit: "2MB"}));
 app.use(express.urlencoded({extended:false}));
@@ -29,6 +31,7 @@ const randomMovie = require('./routes/randomMovie');
 const portfolio = require('./routes/portfolio')
 const auth = require('./routes/auth');
 const weather = require('./routes/weather')
+const productive = require('./routes/productive');
 
 //routes
 //home route
@@ -41,6 +44,8 @@ app.use('/api/random_movie', randomMovie);
 app.use('/auth', auth);
 //weather route
 app.use('/api/weather', weather);
+//productivity app
+app.use('/api/productive', productive);
 
 app.listen(process.env.port || 4000, () => {
     console.log('App is running')

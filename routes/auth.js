@@ -30,8 +30,11 @@ router.route('/')
                 })
                 if (result) {
                     const accessToken = jwt.sign({ name: req.body.username }, process.env.ACCESS_TOKEN);
+
+                    res.cookie('jwt', accessToken, {
+                        httpOnly: true
+                    })
                     return res.status(200).json({
-                        jwt: accessToken,
                         msg: "Logged in!",
                         logged: true
                     })
@@ -41,6 +44,7 @@ router.route('/')
             })
         })
     } catch (err) {
+        console.log(err)
         return res.json({
             msg: "Something went wrong",
             logged: false
