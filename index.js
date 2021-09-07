@@ -32,6 +32,7 @@ const portfolio = require('./routes/portfolio')
 const auth = require('./routes/auth');
 const weather = require('./routes/weather')
 const productive = require('./routes/productive');
+const investment = require('./routes/stockmonitor');
 
 //routes
 //home route
@@ -46,6 +47,8 @@ app.use('/auth', auth);
 app.use('/api/weather', weather);
 //productivity app
 app.use('/api/productive', productive);
+//stock app
+app.use('/api/investment', investment)
 
 app.listen(process.env.port || 4000, () => {
     console.log('App is running')
