@@ -50,6 +50,6 @@ app.use('/api/productive', productive);
 //stock app
 app.use('/api/investment', investment)
 
-app.listen(process.env.port || 4000, () => {
+app.listen(process.env.PORT || 4000, () => {
     console.log('App is running')
 });
