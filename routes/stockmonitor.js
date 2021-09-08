@@ -1,5 +1,6 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+const axios = require('axios');
+const mongoose = require('mongoose');
 
 let router = express.Router();
 
@@ -10,9 +11,22 @@ const stockSchema = require('../models/Stock');
 const authToken = require('../middleware/authToken');
 
 router.route('/')
-.get((req, res) => {
-    res.clearCookie('jwt');
-    return res.json({ msg: "cookie has been cleared"});
+.get(async (req, res) => {
+    try {
+        const data = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${process.env.STOCK_API}`);
+        const stock= data.data["Time Series (Daily)"]
+        const stockData = await stockSchema.find();
+        return res.json({
+            bought: stockData,
+            lastPrice: stock[Object.keys(stock)[0]]
+        });
+    } catch (err) {
+        console.log(err)
+        res.json({
+            msg: "Something went wrong.",
+            success: false
+        })
+    }
 })
 .post(authToken,async (req, res) => {
     //handle if no bought value
