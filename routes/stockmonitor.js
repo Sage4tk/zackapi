@@ -13,7 +13,7 @@ const authToken = require('../middleware/authToken');
 router.route('/')
 .get(async (req, res) => {
     try {
-        const data = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${process.env.STOCK_API}`);
+        const data = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VOO&apikey=${process.env.STOCK_API}`);
         const stock= data.data["Time Series (Daily)"]
         const stockData = await stockSchema.find();
         return res.json({
