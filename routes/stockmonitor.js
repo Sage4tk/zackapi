@@ -15,9 +15,20 @@ router.route('/')
     try {
         const data = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VOO&apikey=${process.env.STOCK_API}`);
         const stock= data.data["Time Series (Daily)"]
-        const stockData = await stockSchema.find();
+        const selectorStock = stock[Object.keys(stock)[0]];
+
+        let stockData = await stockSchema.find();
+        stockData = JSON.parse(JSON.stringify(stockData))
+
+        //adds key for roi + amount
+        const finalStock = stockData.map((e) => {
+            e.finalPrice = parseFloat(((((parseFloat(selectorStock['4. close']) - e.price) / e.price) + 1) * e.bought).toFixed(2));
+            return e;
+        })
+
+        console.log(finalStock)
         return res.json({
-            bought: stockData,
+            bought: finalStock,
             lastPrice: stock[Object.keys(stock)[0]]
         });
     } catch (err) {
