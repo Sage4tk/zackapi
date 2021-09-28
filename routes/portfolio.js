@@ -10,7 +10,7 @@ const projectSchema = require('../models/Project');
 const authToken = require('../middleware/authToken');
 
 router.route('/')
-.get(authToken, async (req, res) => {
+.get(async (req, res) => {
     try {
         const data = await projectSchema.find();
         return res.json(data)
@@ -18,7 +18,7 @@ router.route('/')
         return res.json({msg: "Something went wrong", status: "failed"});
     }
 })
-.post(async (req, res) => {
+.post(authToken, async (req, res) => {
     try {
         const saveItem = new projectSchema({
             title: req.body.title,
